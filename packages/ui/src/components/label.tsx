@@ -37,7 +37,7 @@ export interface LabelProps extends ComponentPropsWithRef<typeof RadixLabel.Root
 export function Label({ required, optional, disabled, visuallyHidden, className, children, ...props }: LabelProps) {
   return (
     <RadixLabel.Root
-      className={cn(labelClasses, disabled && 'text-fg-disabled', visuallyHidden && 'sr-only', className)}
+      className={cn(labelClasses, disabled && 'text-fg-muted', visuallyHidden && 'sr-only', className)}
       {...props}
     >
       <LabelContent required={required} optional={optional}>

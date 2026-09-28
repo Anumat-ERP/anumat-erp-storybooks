@@ -315,7 +315,7 @@ export const scales = {
   "z-index": {
     "base": "0",
     "sticky": "100",
-    "dropdown": "1000",
+    "dropdown": "1300",
     "overlay": "1100",
     "modal": "1200",
     "popover": "1300",

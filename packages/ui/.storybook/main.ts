@@ -15,6 +15,17 @@ const config: StorybookConfig = {
   ],
   async viteFinal(config) {
     config.plugins = [...(config.plugins ?? []), tailwindcss()];
+    // `'use client'` is for Next's RSC boundary; Vite rightly ignores it.
+    config.build = {
+      ...config.build,
+      rollupOptions: {
+        ...config.build?.rollupOptions,
+        onwarn(warning, warn) {
+          if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+          warn(warning);
+        },
+      },
+    };
     return config;
   },
 };

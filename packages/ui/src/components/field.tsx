@@ -167,7 +167,7 @@ export function Field({
     <>
       {hasErrorMessage ? <FieldError id={errorId}>{error}</FieldError> : null}
       {helpText ? (
-        <p id={helpTextId} className={cn('text-sm', disabled ? 'text-fg-disabled' : 'text-fg-muted')}>
+        <p id={helpTextId} className="text-sm text-fg-muted">
           {helpText}
         </p>
       ) : null}
@@ -184,7 +184,7 @@ export function Field({
       >
         <legend
           id={labelId}
-          className={cn(labelClasses, 'mb-2 p-0', disabled && 'text-fg-disabled', labelHidden && 'sr-only')}
+          className={cn(labelClasses, 'mb-2 p-0', disabled && 'text-fg-muted', labelHidden && 'sr-only')}
         >
           <LabelContent required={required} optional={optional}>
             {label}

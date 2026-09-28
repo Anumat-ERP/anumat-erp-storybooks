@@ -38,7 +38,8 @@ changing one; reviewers hold PRs to it.
   - shadow: `shadow-xs | sm | md | lg` (cards `xs`, popovers `md`, dialogs `lg`).
   - motion: `duration-(--a-duration-fast|base|slow)`, `ease-standard | enter | exit`,
     `animate-fade-in | pop-in | slide-in-right | toast-in | spin | pulse`.
-  - z-index: `z-(--a-z-index-base|sticky|dropdown|overlay|modal|popover|toast|tooltip)`.
+  - z-index: `z-(--a-z-index-base|sticky|overlay|modal|dropdown|popover|toast|tooltip)`.
+    Menus and popovers sit above modals, so they work when opened inside one.
   - inside a self-contained sticky region (a table), a local stacking order
     `z-1`…`z-3` is fine; use the tokens for anything that overlays the page.
   - durations: `instant | fast | base | slow | slower`.
@@ -47,7 +48,9 @@ changing one; reviewers hold PRs to it.
   - dark mode is automatic through the tokens; don't write `dark:` variants
     for colours.
 - **Focus ring:** `focus-visible:outline-2 focus-visible:outline-offset-2
-  focus-visible:outline-ring` on every interactive element. Never remove
+  focus-visible:outline-ring` on every interactive element. Inside scrolling
+  containers (tab lists, modal bodies, sidebars) use `-outline-offset-2` so the
+  ring isn't clipped. Never remove
   focus styles without replacing them.
 - **Class composition:** `cn()` from `../lib/cn`. Variants with
   `class-variance-authority` (`cva`) when there are two or more axes.
@@ -115,6 +118,9 @@ so in the docblock (`**First pass** — …`) and in the story description.
 - Durations show `2:31` and announce "2 minutes 31 seconds"
   (`formatDuration` in `lib/format`).
 - Loading buttons keep their box (`loading` prop).
+- `text-fg-disabled` is only for the inactive control itself (WCAG exempts
+  it). Labels, help text and the *reason* a control is disabled stay readable
+  (`text-fg-muted` at least) — an unreadable explanation is no explanation.
 
 ## Verification
 

@@ -150,12 +150,12 @@ export function DropZone({
       >
         {children ?? (
           <>
-            <Upload aria-hidden className={cn('size-6', disabled ? 'text-fg-disabled' : 'text-fg-muted')} />
-            <p className={cn('text-md', disabled ? 'text-fg-disabled' : 'text-fg')}>
+            <Upload aria-hidden className={cn('size-6', 'text-fg-muted')} />
+            <p className={cn('text-md', disabled ? 'text-fg-muted' : 'text-fg')}>
               <span className={cn('font-medium', !disabled && 'text-fg-link')}>Choose {multiple ? 'files' : 'a file'}</span>{' '}
               or drag {multiple ? 'them' : 'it'} here
             </p>
-            {hint ? <p className={cn('text-sm', disabled ? 'text-fg-disabled' : 'text-fg-muted')}>{hint}</p> : null}
+            {hint ? <p className={cn('text-sm', 'text-fg-muted')}>{hint}</p> : null}
           </>
         )}
         <input

@@ -137,13 +137,13 @@ export function RadioGroupItem({ label, helpText, className, id: idProp, ...prop
           htmlFor={id}
           className={cn(
             'break-words text-md',
-            'cursor-pointer text-fg group-has-disabled/item:cursor-not-allowed group-has-disabled/item:text-fg-disabled',
+            'cursor-pointer text-fg group-has-disabled/item:cursor-not-allowed group-has-disabled/item:text-fg-muted',
           )}
         >
           {label}
         </label>
         {helpText ? (
-          <span id={helpId} className="text-sm text-fg-muted group-has-disabled/item:text-fg-disabled">
+          <span id={helpId} className="text-sm text-fg-muted ">
             {helpText}
           </span>
         ) : null}

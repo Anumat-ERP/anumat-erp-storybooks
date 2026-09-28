@@ -49,7 +49,7 @@ export function Tag({
       data-disabled={disabled || undefined}
       className={cn(
         'inline-flex h-6 min-w-0 items-center rounded-md border border-border bg-surface-muted text-sm text-fg',
-        disabled && 'border-border-subtle bg-surface-sunken text-fg-disabled',
+        disabled && 'border-border-subtle bg-surface-sunken text-fg-muted',
         maxWidthClassName,
         className,
       )}

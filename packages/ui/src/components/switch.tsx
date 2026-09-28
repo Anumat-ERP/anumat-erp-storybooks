@@ -97,14 +97,14 @@ export function Switch({
           htmlFor={id}
           className={cn(
             'break-words text-md',
-            control.disabled ? 'cursor-not-allowed text-fg-disabled' : 'cursor-pointer text-fg',
+            control.disabled ? 'cursor-not-allowed text-fg-muted' : 'cursor-pointer text-fg',
             labelHidden && 'sr-only',
           )}
         >
           {label}
         </label>
         {helpText ? (
-          <span id={helpId} className={cn('text-sm', control.disabled ? 'text-fg-disabled' : 'text-fg-muted')}>
+          <span id={helpId} className={'text-sm text-fg-muted'}>
             {helpText}
           </span>
         ) : null}

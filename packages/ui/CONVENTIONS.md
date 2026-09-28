@@ -34,6 +34,8 @@ changing one; reviewers hold PRs to it.
   - motion: `duration-(--a-duration-fast|base|slow)`, `ease-standard | enter | exit`,
     `animate-fade-in | pop-in | slide-in-right | toast-in | spin | pulse`.
   - z-index: `z-(--a-z-index-dropdown|overlay|modal|popover|toast|tooltip)`.
+  - `bg-surface-sunken` is a well *inside* a surface; in dark mode it equals
+    the page `bg`, so don't use it to separate something from the page.
   - dark mode is automatic through the tokens; don't write `dark:` variants
     for colours.
 - **Focus ring:** `focus-visible:outline-2 focus-visible:outline-offset-2
@@ -93,8 +95,9 @@ so in the docblock (`**First pass** — …`) and in the story description.
 
 - Numbered lists are `ol`; description lists are real `dl`; progress is a
   real `progress` element; exception lists are `ul`.
-- Banners and toasts: `critical` announces assertively (`role="alert"`),
-  everything else politely (`role="status"`).
+- Banners and toasts: `critical` announces assertively, everything else
+  politely. Banners use `role="alert"` / `role="status"`; Radix Toast uses
+  `type="foreground"` (assertive live region) / `type="background"` (polite).
 - Toasts pause their dismiss timer on hover and on focus.
 - Settings that submit use a button; a `Switch` means "applies instantly".
 - Selectable rows stop checkbox events propagating so selecting doesn't

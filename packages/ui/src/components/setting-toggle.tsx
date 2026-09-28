@@ -58,6 +58,7 @@ export function SettingToggle({
 }: SettingToggleProps) {
   const headingId = useId();
   const statusId = useId();
+  const defaultAction = enabled ? 'Turn off' : 'Turn on';
 
   return (
     <Card aria-labelledby={headingId} className={cn('flex flex-wrap items-start justify-between gap-4', className)} {...props}>
@@ -81,15 +82,12 @@ export function SettingToggle({
         loading={loading}
         disabled={disabled}
         onClick={onToggle}
+        // “Turn off” alone is ambiguous in a list of settings; name the setting too (visible text first).
+        aria-label={actionLabel === undefined && typeof title === 'string' ? `${defaultAction} ${title}` : undefined}
         aria-describedby={statusId}
         className="shrink-0"
       >
-        {actionLabel ?? (
-          <>
-            {enabled ? 'Turn off' : 'Turn on'}
-            {typeof title === 'string' ? <span className="sr-only"> {title}</span> : null}
-          </>
-        )}
+        {actionLabel ?? defaultAction}
       </Button>
     </Card>
   );

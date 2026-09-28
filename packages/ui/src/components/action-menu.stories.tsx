@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Archive, ChevronDown, Copy, Download, Mail, MoreHorizontal, Pencil, Printer, Share2, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { fn } from 'storybook/test';
 import {
   ActionMenu,
@@ -46,7 +46,7 @@ const sections: ActionMenuSection[] = [
   },
 ];
 
-const Frame = ({ children }: { children: React.ReactNode }) => <div className="flex min-h-96 justify-end pe-4 pt-2">{children}</div>;
+const Frame = ({ children }: { children: ReactNode }) => <div className="flex min-h-96 justify-end pe-4 pt-2">{children}</div>;
 
 const meta = {
   title: 'components/ActionMenu',

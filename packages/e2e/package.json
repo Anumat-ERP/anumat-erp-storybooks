@@ -1,0 +1,21 @@
+{
+  "name": "@repo/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "e2e": "playwright test",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.36.0",
+    "typescript": "catalog:",
+    "@axe-core/playwright": "^4.10.0",
+    "http-server": "^14.1.1"
+  }
+}

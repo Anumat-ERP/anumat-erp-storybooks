@@ -1,0 +1,7 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
+  "include": ["src", ".storybook", "vitest.d.ts", "vitest.config.ts"]
+}

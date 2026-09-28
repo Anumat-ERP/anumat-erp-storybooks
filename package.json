@@ -1,0 +1,50 @@
+{
+  "name": "polaris-shadcn",
+  "private": true,
+  "packageManager": "bun@1.3.11",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "modules/*",
+      "packages/*",
+      "packages/config/*"
+    ],
+    "catalog": {
+      "react": "^19.2.0",
+      "react-dom": "^19.2.0",
+      "@types/react": "^19.2.0",
+      "@types/react-dom": "^19.2.0",
+      "typescript": "~5.9.3",
+      "vitest": "^4.0.0",
+      "tailwindcss": "^4.1.0"
+    },
+    "catalogs": {
+      "storybook": {
+        "storybook": "^10.0.0",
+        "@storybook/react-vite": "^10.0.0",
+        "@storybook/addon-a11y": "^10.0.0",
+        "@storybook/addon-docs": "^10.0.0",
+        "eslint-plugin-storybook": "^10.0.0"
+      }
+    }
+  },
+  "scripts": {
+    "build": "bun run --filter '*' build",
+    "dev": "bun run --filter @repo/ui storybook",
+    "check-types": "bun run --filter '*' check-types",
+    "lint": "bun run --filter '*' lint",
+    "test": "bun run --filter '*' test",
+    "storybook": "bun run --filter @repo/ui storybook",
+    "storybook:build": "bun run --filter @repo/ui storybook:build",
+    "generate": "bun run --filter @repo/ui generate",
+    "turbo:build": "turbo run build",
+    "turbo:check-types": "turbo run check-types",
+    "turbo:lint": "turbo run lint",
+    "turbo:test": "turbo run test"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "turbo": "^2.5.8",
+    "typescript": "catalog:"
+  }
+}

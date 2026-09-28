@@ -1,0 +1,30 @@
+{
+  "name": "playground",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@repo/ui": "workspace:*",
+    "next": "^16.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "^9.36.0",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}

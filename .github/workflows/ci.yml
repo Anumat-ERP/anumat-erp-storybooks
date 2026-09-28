@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+      - run: bun install --frozen-lockfile
+
+      - name: Generated files are current
+        run: |
+          bun run --filter @repo/ui build:theme
+          bun run --filter @repo/ui status
+          git diff --exit-code -- packages/ui/src/styles packages/ui/src/lib packages/ui/STATUS.md
+
+      # check-types and lint are part of acceptance: Vitest strips types
+      # without checking them and `next build` only typechecks the app.
+      - run: bun run check-types
+      - run: bun run lint
+      - run: bun run test
+      - run: bun run build
+
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+      - run: bun install --frozen-lockfile
+      - run: bun run storybook:build
+      - run: bunx playwright install --with-deps chromium
+        working-directory: packages/e2e
+      - name: Every story renders and passes axe (both themes)
+        run: bun run --filter @repo/e2e e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: packages/e2e/test-results

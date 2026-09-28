@@ -113,7 +113,7 @@ export const Loading: Story = {
   args: {
     children: (
       <Page>
-        <div aria-busy="true" aria-label="Loading checkouts" className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4">
+        <div role="status" aria-busy="true" aria-label="Loading checkouts" className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4">
           {[90, 70, 80].map((w) => (
             <div key={w} className="h-4 animate-pulse rounded-sm bg-skeleton" style={{ width: `${w}%` }} />
           ))}

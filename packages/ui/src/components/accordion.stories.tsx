@@ -144,7 +144,7 @@ export const Loading: Story = {
         <AccordionItem value="returns">
           <AccordionTrigger>Return reasons</AccordionTrigger>
           <AccordionContent>
-            <div aria-busy="true" aria-label="Loading return reasons" className="flex flex-col gap-2">
+            <div role="status" aria-busy="true" aria-label="Loading return reasons" className="flex flex-col gap-2">
               {[70, 55, 62].map((w) => (
                 <div key={w} className="h-3 animate-pulse rounded-sm bg-skeleton" style={{ width: `${w}%` }} />
               ))}

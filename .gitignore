@@ -10,3 +10,4 @@ playwright-report/
 .DS_Store
 next-env.d.ts
 packages/e2e/.shot-*.tmp.mjs
+packages/e2e/.*.tmp.mjs

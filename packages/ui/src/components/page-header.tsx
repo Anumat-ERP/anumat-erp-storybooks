@@ -148,7 +148,7 @@ export function PageHeader({
         {hasActions ? (
           <div className="flex max-w-full shrink-0 flex-wrap items-center gap-2">
             {secondaryActions?.length ? (
-              <PageActions actions={secondaryActions} maxVisible={maxVisibleSecondaryActions} />
+              <PageActions actions={secondaryActions} maxVisible={maxVisibleSecondaryActions} className="contents" />
             ) : null}
             {primary}
             {pagination ? <div className="flex items-center">{pagination}</div> : null}

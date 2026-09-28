@@ -177,7 +177,7 @@ export const Loading: Story = {
     primaryAction: { content: 'Fulfil order', disabled: true },
     secondaryActions: undefined,
     children: (
-      <div aria-busy="true" aria-label="Loading order" className="flex flex-col gap-3">
+      <div role="status" aria-busy="true" aria-label="Loading order" className="flex flex-col gap-3">
         {Array.from({ length: 5 }, (_, i) => (
           <div key={i} className="h-4 animate-pulse rounded-sm bg-skeleton" style={{ width: `${80 - i * 9}%` }} />
         ))}

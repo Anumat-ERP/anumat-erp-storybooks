@@ -173,7 +173,7 @@ export const Loading: Story = {
         ))}
       </TabsList>
       <TabsContent value="unfulfilled">
-        <div aria-busy="true" aria-label="Loading orders" className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4">
+        <div role="status" aria-busy="true" aria-label="Loading orders" className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4">
           {[90, 75, 82].map((w) => (
             <div key={w} className="h-4 animate-pulse rounded-sm bg-skeleton" style={{ width: `${w}%` }} />
           ))}

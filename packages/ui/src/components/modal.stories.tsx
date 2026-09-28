@@ -210,6 +210,7 @@ export const Fullscreen: Story = {
   args: {
     size: 'fullscreen',
     title: 'Edit email template',
+    description: undefined,
     trigger: <Button>Edit template</Button>,
     primaryAction: { content: 'Save template', onAction: fn() },
     children: (

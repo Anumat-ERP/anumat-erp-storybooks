@@ -69,6 +69,7 @@ export function DropdownMenuItem({ destructive, className, ...props }: DropdownM
         'data-highlighted:[&_svg]:text-fg [&_svg]:text-fg-muted',
         destructive &&
           'text-critical-subtle-fg [&_svg]:text-critical-subtle-fg data-highlighted:bg-critical-subtle data-highlighted:text-critical-subtle-fg data-highlighted:[&_svg]:text-critical-subtle-fg',
+        'data-disabled:text-fg-disabled data-disabled:[&_svg]:text-fg-disabled',
         className,
       )}
       {...props}
@@ -243,6 +244,12 @@ export interface ActionMenuProps {
   align?: 'start' | 'center' | 'end';
   /** Which side of the trigger the menu prefers. */
   side?: 'top' | 'right' | 'bottom' | 'left';
+  /**
+   * Modal menus lock page scroll and hide the rest of the page from
+   * assistive technology while open. Off by default: an action menu is a
+   * transient popup, and locking scroll shifts page layout.
+   */
+  modal?: boolean;
   /** Classes for the menu surface. */
   className?: string;
 }
@@ -265,11 +272,12 @@ export function ActionMenu({
   defaultOpen,
   align = 'end',
   side,
+  modal = false,
   className,
 }: ActionMenuProps) {
   const all = items?.length ? [{ items }, ...sections] : sections;
   return (
-    <DropdownMenu open={open} onOpenChange={onOpenChange} defaultOpen={defaultOpen}>
+    <DropdownMenu open={open} onOpenChange={onOpenChange} defaultOpen={defaultOpen} modal={modal}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent align={align} side={side} className={className}>
         {all.map((section, index) => (

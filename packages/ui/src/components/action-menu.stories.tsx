@@ -85,6 +85,11 @@ const meta = {
       description: 'Preferred side; flips when there is no room.',
       table: { type: { summary: "'top' | 'right' | 'bottom' | 'left'" }, defaultValue: { summary: 'bottom' } },
     },
+    modal: {
+      control: 'boolean',
+      description: 'Lock page scroll and hide the page from assistive technology while open. Off by default.',
+      table: { type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+    },
     open: { control: 'boolean', description: 'Controlled open state.', table: { type: { summary: 'boolean' } } },
     defaultOpen: {
       control: 'boolean',
@@ -189,7 +194,7 @@ export const Overflow: Story = {
     sections: [
       {
         title: 'Move to location',
-        items: Array.from({ length: 16 }, (_, i) => ({
+        items: Array.from({ length: 9 }, (_, i) => ({
           content: `Warehouse ${i + 1} — Distribution centre, Avenida da Liberdade ${100 + i}, Lisboa`,
           onAction: fn(),
         })),
@@ -224,7 +229,7 @@ export const Primitives: Story = {
     const [density, setDensity] = useState('comfortable');
     return (
       <Frame>
-        <DropdownMenu defaultOpen>
+        <DropdownMenu defaultOpen modal={false}>
           <DropdownMenuTrigger asChild>
             <Button trailingIcon={<ChevronDown aria-hidden />}>View</Button>
           </DropdownMenuTrigger>

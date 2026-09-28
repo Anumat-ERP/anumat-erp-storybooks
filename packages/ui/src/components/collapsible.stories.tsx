@@ -89,7 +89,7 @@ export const Loading: Story = {
   render: (args) => (
     <Collapsible {...args}>
       <Example label="Event payload">
-        <div aria-busy="true" aria-label="Loading payload" className="flex flex-col gap-2">
+        <div role="status" aria-busy="true" aria-label="Loading payload" className="flex flex-col gap-2">
           {[80, 60, 72].map((w) => (
             <div key={w} className="h-3 animate-pulse rounded-sm bg-skeleton" style={{ width: `${w}%` }} />
           ))}

@@ -39,6 +39,8 @@ changing one; reviewers hold PRs to it.
   - motion: `duration-(--a-duration-fast|base|slow)`, `ease-standard | enter | exit`,
     `animate-fade-in | pop-in | slide-in-right | toast-in | spin | pulse`.
   - z-index: `z-(--a-z-index-base|sticky|dropdown|overlay|modal|popover|toast|tooltip)`.
+  - inside a self-contained sticky region (a table), a local stacking order
+    `z-1`…`z-3` is fine; use the tokens for anything that overlays the page.
   - durations: `instant | fast | base | slow | slower`.
   - `bg-surface-sunken` is a well *inside* a surface; in dark mode it equals
     the page `bg`, so don't use it to separate something from the page.
@@ -69,7 +71,7 @@ changing one; reviewers hold PRs to it.
 - Export it from `src/index.ts` and register it in `scripts/manifest.mjs`
   (`STATUS.md` is generated from the manifest — run `bun run status`).
 - Tests for behaviour worth pinning: `<kebab-name>.test.tsx` using
-  `@repo/testing` (`renderWithProviders`, `screen`, `user`).
+  `@repo/testing`: `const { user } = renderWithProviders(<X />)`, then `screen`.
 
 ## Docblocks
 

@@ -5,6 +5,9 @@ monorepo. It uses the shadcn architecture: we own every component's source,
 Radix supplies behaviour contracts, and Tailwind v4 utilities style
 components against **our own design tokens**.
 
+**Storybook:** https://anumat-erp.github.io/anumat-erp-storybooks/ (built and
+deployed by `.github/workflows/pages.yml` on every push to `main`).
+
 ```
 .
 ├── apps/

@@ -229,7 +229,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const TotalsOnTop: Story = {
-  args: { totalsPosition: 'top', totalsLabel: 'Total (12 orders)' },
+  args: { totalsPosition: 'top', totalsLabel: 'Totals' },
 };
 
 export const Comfortable: Story = {

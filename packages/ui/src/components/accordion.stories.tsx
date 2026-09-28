@@ -1,6 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentType } from 'react';
 import { AlertTriangle, Lock, WifiOff } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, type AccordionProps } from './accordion';
+
+/** Flattened args: Radix types `single` and `multiple` as a union, which controls can't express. */
+interface Args {
+  type: 'single' | 'multiple';
+  collapsible?: boolean;
+  defaultValue?: string | string[];
+  variant?: 'card' | 'flush';
+  disabled?: boolean;
+}
+
+const props = (args: Args, overrides: Partial<Args> = {}) => ({ ...args, ...overrides }) as unknown as AccordionProps;
 import { Card } from './card';
 
 const faqs = [
@@ -23,7 +35,7 @@ const faqs = [
 
 const meta = {
   title: 'components/Accordion',
-  component: Accordion,
+  component: Accordion as unknown as ComponentType<Args>,
   args: { type: 'single', collapsible: true, defaultValue: 'returns', variant: 'card' },
   argTypes: {
     type: {
@@ -56,7 +68,7 @@ const meta = {
   },
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         {faqs.map((f) => (
           <AccordionItem key={f.value} value={f.value}>
             <AccordionTrigger>{f.q}</AccordionTrigger>
@@ -79,10 +91,10 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<Args>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<Args>;
 
 export const Default: Story = {};
 
@@ -95,7 +107,7 @@ export const FlushInCard: Story = {
   render: (args) => (
     <Card flush className="max-w-xl">
       <h2 className="border-b border-border px-4 py-3 text-lg font-semibold">Returns policy</h2>
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         {faqs.map((f) => (
           <AccordionItem key={f.value} value={f.value}>
             <AccordionTrigger headingAs="h3">{f.q}</AccordionTrigger>
@@ -110,7 +122,7 @@ export const FlushInCard: Story = {
 export const WithSuffix: Story = {
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args} defaultValue="shipping">
+      <Accordion {...props(args, { defaultValue: 'shipping' })}>
         <AccordionItem value="shipping">
           <AccordionTrigger suffix="3 zones">Shipping</AccordionTrigger>
           <AccordionContent>Domestic, Europe and Rest of world.</AccordionContent>
@@ -128,7 +140,7 @@ export const WithSuffix: Story = {
 export const Loading: Story = {
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         <AccordionItem value="returns">
           <AccordionTrigger>Return reasons</AccordionTrigger>
           <AccordionContent>
@@ -152,7 +164,7 @@ export const ErrorState: Story = {
   name: 'Error',
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         <AccordionItem value="returns">
           <AccordionTrigger>Return reasons</AccordionTrigger>
           <AccordionContent>
@@ -171,7 +183,7 @@ export const ErrorState: Story = {
 export const Permission: Story = {
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         <AccordionItem value="returns">
           <AccordionTrigger>Return window</AccordionTrigger>
           <AccordionContent>30 days from delivery.</AccordionContent>
@@ -188,7 +200,7 @@ export const Permission: Story = {
 export const Offline: Story = {
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args}>
+      <Accordion {...props(args)}>
         <AccordionItem value="returns">
           <AccordionTrigger>Return window</AccordionTrigger>
           <AccordionContent>
@@ -207,7 +219,7 @@ export const Offline: Story = {
 export const Empty: Story = {
   render: (args) => (
     <div className="max-w-xl">
-      <Accordion {...args} defaultValue="rules">
+      <Accordion {...props(args, { defaultValue: 'rules' })}>
         <AccordionItem value="rules">
           <AccordionTrigger suffix="0">Automatic return rules</AccordionTrigger>
           <AccordionContent>
@@ -219,11 +231,11 @@ export const Empty: Story = {
   ),
 };
 
-/** Overflow: long headings wrap; the chevron stays top-aligned to the first line’s centre. */
+/** Overflow: long headings wrap; the chevron stays put at the end. */
 export const Overflow: Story = {
   render: (args) => (
     <div className="max-w-sm">
-      <Accordion {...args} defaultValue="long">
+      <Accordion {...props(args, { defaultValue: 'long' })}>
         <AccordionItem value="long">
           <AccordionTrigger>
             What happens to loyalty points, gift card balances and store credit when a partially refunded wholesale order is exchanged?

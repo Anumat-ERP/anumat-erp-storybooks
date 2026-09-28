@@ -220,10 +220,10 @@ export function DataTable<T>({
   };
 
   const cellPad = density === 'dense' ? 'px-3 py-2' : 'px-4 py-3';
-  const colCount = columns.length + (selectable ? 1 : 0);
   const showSkeleton = loading && (loadingVariant === 'skeleton' || (loadingVariant === 'auto' && rows.length === 0));
   const showOverlay = loading && !showSkeleton;
   const bodyMessage = !loading && error ? error : !loading && rows.length === 0 ? emptyState : null;
+  const hasMessage = bodyMessage !== null && bodyMessage !== undefined;
 
   const alignOf = (c: DataTableColumn<T>) => c.align ?? (c.numeric ? 'end' : 'start');
 
@@ -237,7 +237,7 @@ export function DataTable<T>({
   const headSticky = stickyHeader ? 'sticky top-0 z-2' : undefined;
 
   const cellClass = (c: DataTableColumn<T>) =>
-    cn(cellPad, 'border-b border-border-subtle align-middle', alignOf(c) === 'end' ? 'text-end' : 'text-start', c.numeric && 'tabular-nums');
+    cn(cellPad, 'border-b border-border-subtle align-middle whitespace-nowrap', alignOf(c) === 'end' ? 'text-end' : 'text-start', c.numeric && 'tabular-nums');
 
   const totalsRow = totals ? (
     <tr className="bg-surface-muted">
@@ -272,6 +272,12 @@ export function DataTable<T>({
       data-slot="data-table"
       {...props}
     >
+      {captionHidden ? null : (
+        // The real <caption> is visually hidden so the visible title can sit above the toolbar and bulk bar.
+        <div aria-hidden className="px-3 pt-3 pb-2 text-lg font-semibold text-fg">
+          {caption}
+        </div>
+      )}
       {toolbar ? <div className="border-b border-border px-3 py-3">{toolbar}</div> : null}
       {alert ? <div className="border-b border-border px-3 py-3">{alert}</div> : null}
       {selectable ? (
@@ -312,13 +318,7 @@ export function DataTable<T>({
           )}
           aria-busy={loading || undefined}
         >
-          <caption
-            className={cn(
-              captionHidden ? 'sr-only' : 'caption-top px-3 pt-3 pb-2 text-start text-lg font-semibold text-fg',
-            )}
-          >
-            {caption}
-          </caption>
+          <caption className="sr-only">{caption}</caption>
           <thead>
             <tr className="bg-surface-muted">
               {selectable ? (
@@ -355,7 +355,7 @@ export function DataTable<T>({
                         type="button"
                         onClick={() => handleSort(c.id)}
                         className={cn(
-                          '-mx-1 inline-flex items-center gap-1 rounded-sm px-1 font-medium hover:text-fg',
+                          '-mx-1 inline-flex items-center gap-1 rounded-sm px-1 align-middle font-medium hover:text-fg',
                           'focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring',
                           end && 'flex-row-reverse',
                           sorted && 'text-fg',
@@ -392,22 +392,15 @@ export function DataTable<T>({
                     {columns.map((c, index) => (
                       <td key={c.id} className={cn(cellClass(c), 'bg-inherit', stickyFirst(index, 'body'))}>
                         <div
-                          className={cn('h-3.5 animate-pulse rounded-sm bg-skeleton', alignOf(c) === 'end' && 'ms-auto')}
+                          className={cn('my-1 h-3.5 animate-pulse rounded-sm bg-skeleton', alignOf(c) === 'end' && 'ms-auto')}
                           style={{ width: c.numeric ? '4rem' : `${55 + ((r * 17 + index * 23) % 40)}%` }}
                         />
                       </td>
                     ))}
                   </tr>
                 ))
-              : bodyMessage !== null && bodyMessage !== undefined
-                ? (
-                    <tr>
-                      <td colSpan={colCount} className="px-4 py-8">
-                        {/* Keep the message in view when the table is wider than its container. */}
-                        <div className="sticky left-4 max-w-[40rem]">{bodyMessage}</div>
-                      </td>
-                    </tr>
-                  )
+              : hasMessage
+                ? null
                 : sortedRows.map((row, r) => {
                     const id = ids[r] ?? String(r);
                     const isSelected = selectable && selection.isSelected(id);
@@ -458,6 +451,9 @@ export function DataTable<T>({
           {totalsPosition === 'bottom' && totals && !showSkeleton && rows.length > 0 && !error ? <tfoot>{totalsRow}</tfoot> : null}
         </table>
       </div>
+
+      {/* Outside the scroll area so it stays centred in view however wide the table is. */}
+      {hasMessage ? <div className="px-4 py-8">{bodyMessage}</div> : null}
 
       {showOverlay ? (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">

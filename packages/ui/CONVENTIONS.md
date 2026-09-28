@@ -24,16 +24,22 @@ changing one; reviewers hold PRs to it.
     `bg-{tone}`, `bg-{tone}-hover`, `bg-{tone}-active`, `text-{tone}-fg`
     (text on the solid fill), `bg-{tone}-subtle`, `text-{tone}-subtle-fg`,
     `border-{tone}-border`.
+  - every colour token works with every colour utility: `fill-*`,
+    `stroke-*`, `outline-*`, `decoration-*`, `divide-*`, `ring-*`.
+    `border-border-input` meets 3:1 against surfaces (checked by
+    build-theme), so use it for control boundaries.
   - type: `text-xs | sm | md | lg | xl | 2xl | 3xl` (body is `text-md`,
     14px), `font-regular | medium | semibold | bold`, `font-sans | mono`,
     `tracking-tight | normal | wide`.
   - space: the 4px grid — `p-1` = 4px, `p-4` = 16px. Control heights:
-    `h-control-sm | md | lg` (28 / 36 / 44px).
+    `h-control-sm | md | lg` (28 / 36 / 44px); `w-control-*` / `size-control-*`
+    for square controls.
   - radius: `rounded-sm | md | lg | xl | full` (controls `md`, cards `lg`).
   - shadow: `shadow-xs | sm | md | lg` (cards `xs`, popovers `md`, dialogs `lg`).
   - motion: `duration-(--a-duration-fast|base|slow)`, `ease-standard | enter | exit`,
     `animate-fade-in | pop-in | slide-in-right | toast-in | spin | pulse`.
-  - z-index: `z-(--a-z-index-dropdown|overlay|modal|popover|toast|tooltip)`.
+  - z-index: `z-(--a-z-index-base|sticky|dropdown|overlay|modal|popover|toast|tooltip)`.
+  - durations: `instant | fast | base | slow | slower`.
   - `bg-surface-sunken` is a well *inside* a surface; in dark mode it equals
     the page `bg`, so don't use it to separate something from the page.
   - dark mode is automatic through the tokens; don't write `dark:` variants
@@ -49,7 +55,7 @@ changing one; reviewers hold PRs to it.
 - **No framework imports.** Nothing from `next/*`. Components needing routing
   take an `href` or use `asChild`.
 - **Server Components:** any file that uses hooks, event handlers, context,
-  browser APIs or Radix starts with `'use client';`. Purely presentational
+  browser APIs or stateful Radix primitives (Slot alone doesn't count) starts with `'use client';`. Purely presentational
   files (Text, Stack, Card) stay directive-free so they render on the server.
   The playground's `next build` fails if this is wrong.
 - **React 19:** `ref` is a regular prop; use `ComponentPropsWithRef<'x'>` and

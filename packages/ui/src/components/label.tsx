@@ -5,7 +5,7 @@ import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 
 /** Shared label typography, also used for a Field's `<legend>`. */
-export const labelClasses = 'inline-flex flex-wrap items-baseline gap-x-1 text-md font-medium text-fg';
+export const labelClasses = 'inline-block break-words text-md font-medium text-fg';
 
 export interface LabelProps extends ComponentPropsWithRef<typeof RadixLabel.Root> {
   /**
@@ -55,12 +55,14 @@ export function LabelContent({
 }: Pick<LabelProps, 'required' | 'optional' | 'children'>) {
   return (
     <>
-      <span>{children}</span>
+      {children}
+      {/* No space before the asterisk, so it can’t wrap onto a line of its own. */}
       {required ? (
-        <span aria-hidden className="text-critical-subtle-fg">
+        <span aria-hidden className="ms-0.5 text-critical-subtle-fg">
           *
         </span>
       ) : null}
+      {optional && !required ? ' ' : null}
       {optional && !required ? (
         <span className="text-sm font-regular text-fg-muted">
           {typeof optional === 'string' ? optional : '(optional)'}

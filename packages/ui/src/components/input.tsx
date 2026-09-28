@@ -195,7 +195,7 @@ export function Input({
         onKeyDown={handleKeyDown}
         aria-describedby={describedBy}
         className={cn(
-          'h-full w-full min-w-0 flex-1 bg-transparent text-inherit outline-none',
+          'h-full w-full min-w-12 flex-1 bg-transparent text-inherit outline-none',
           'placeholder:text-fg-subtle disabled:cursor-not-allowed',
           '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none',
           inputClassName,
@@ -213,7 +213,7 @@ export function Input({
       ) : null}
       {showCount ? <CharacterCount id={countId} count={currentValue.length} max={maxLength} /> : null}
       {suffix !== undefined && suffix !== null ? (
-        <span data-affix className="flex shrink-0 items-center text-fg-muted">
+        <span data-affix className="min-w-0 max-w-1/2 truncate whitespace-nowrap text-fg-muted">
           {suffix}
         </span>
       ) : null}
